@@ -17,13 +17,6 @@ public class UserService {
     @Autowired
     private UserDAO userDAO;
 
-    public User save(NewUserDTO payload) {
-        if (!userDAO.existsByEmail(payload.email()) && !userDAO.existsByUsername(payload.username())) {
-            User newUser = new User(payload.name(), payload.surname(), payload.email(), payload.username(), payload.password());
-            return this.userDAO.save(newUser);
-        } else throw new BadRequestException("Username/Email are already taken");
-    }
-
     public Page<User> findAll(int number, int size, String sortBY) {
         Pageable pageable = PageRequest.of(number, size, Sort.by(sortBY));
         return this.userDAO.findAll(pageable);
@@ -52,5 +45,9 @@ public class UserService {
     public void findByIdAndDelete(long id) {
         User found = this.findById(id);
         this.userDAO.delete(found);
+    }
+
+    public User findByEmail(String email) {
+        return this.userDAO.findByEmail(email).orElseThrow(() -> new BadRequestException("Email: " + email + " has not been found"));
     }
 }
