@@ -22,6 +22,8 @@ public class UserController {
     @Autowired
     private AuthService authService;
 
+//    HO INSERITO SOLO I METODI ME IN QUANTO GLI EVENT_ORGANIZER NON HANNO FUNZIONE DI ADMIN E QUINDI LA POSSIBILITA' DI VISIONARE/MODIFICARE/ELIMINARE GLI ALTRI UTENTI
+
     @GetMapping("/me")
     public User findMe(@AuthenticationPrincipal User currentUser) {
         return currentUser;

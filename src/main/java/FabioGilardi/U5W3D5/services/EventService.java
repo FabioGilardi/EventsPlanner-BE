@@ -41,7 +41,7 @@ public class EventService {
         } else throw new BadRequestException("Place and Date are already booked");
     }
 
-    //    DO LA POSSIBILITA' DI CAMBIARE IL LUOGO E LA DATA DELL'EVENTO DOPO CHE E' STATO CREATO, IN QUANTO DIFFICILMENTE VERRANNO MODIFICATE ALTRE VARIABILI IN UNA CASISTICA REALE
+    //    DO LA POSSIBILITA' DI CAMBIARE SOLTANTO IL LUOGO E LA DATA DELL'EVENTO DOPO CHE E' STATO CREATO, IN QUANTO DIFFICILMENTE VERRANNO MODIFICATE ALTRE VARIABILI IN UNA CASISTICA REALE
     public Event findByIdAndUpdate(long id, UpdateEventDTO payload) {
         Event found = this.findById(id);
         if (!eventDAO.existsByPlaceAndDate(payload.place(), payload.date())) {

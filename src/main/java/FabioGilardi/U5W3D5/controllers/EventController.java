@@ -20,6 +20,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    //    LA RICERCA DEGLI EVENTI L'HO LASCIATA APERTA A TUTTI IN QUANTO ANCHE GLI USER NORMALI POSSONO VEDERE QUALI EVENTI SONO DISPONIBILI
     @GetMapping
     public Page<Event> findAll(@RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "20") int size,
@@ -32,6 +33,7 @@ public class EventController {
         return eventService.findById(id);
     }
 
+    //    LA MODIFICA/AGGIUNTA/ELIMINAZIONE DI EVENTI E' RISERVATA AGLI EVENT_ORGANIZER SOLTANTO
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('EVENT_ORGANIZER')")
