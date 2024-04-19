@@ -23,13 +23,16 @@ public class BookingService {
 
     //    FA IN MODO CHE L'UTENTE LOGGATO POSSA PRENOTARE SOLO PER SE STESSO E NON PER ALTRI
     public Booking save(long userId, NewBookingDTO payload) {
-        if (!bookingDAO.existsByEventIdAndUserId(payload.eventId(), userId) && eventService.findById(payload.eventId()).getBookingList().size() < eventService.findById(payload.eventId()).getMaxPartecipants()) {
-            Booking newBooking = new Booking(this.userService.findById(userId), this.eventService.findById(payload.eventId()));
-            return this.bookingDAO.save(newBooking);
-        } else throw new BadRequestException("You already have already booked for this event");
+        if (bookingDAO.existsByEventIdAndUserId(payload.eventId(), userId))
+            throw new BadRequestException("You have already booked for this event");
+        if (eventService.findById(payload.eventId()).getBookingList().size() < eventService.findById(payload.eventId()).getMaxPartecipants())
+            throw new BadRequestException("Event " + payload.eventId() + " is already full");
+        Booking newBooking = new Booking(this.userService.findById(userId), this.eventService.findById(payload.eventId()));
+        return this.bookingDAO.save(newBooking);
     }
 
     //    FA IN MODO CHE L'UTENTE LOGGATO POSSA VEDERE TUTTE LE SUE PRENOTAZIONI, NON AGGIUNGO UN FINDALL GENERICO IN QUANTO NON MI SEMBRA NECESSARIA UNA FUNZIONE CHE MOSTRI TUTTE LE PRENOTAZIONI PER OGNI SINGOLO UTENTE ED EVENTO
+    //    HO USATO LIST IN QUANTO IL NUMERO DI PRENOTAZIONI DI UN SINGOLO UTENTE SARA' SEMPRE CONTENUTO
     public List<Booking> findAllOneUser(long userId) {
         return this.bookingDAO.findByUserId(userId);
     }
