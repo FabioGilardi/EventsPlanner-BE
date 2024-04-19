@@ -4,6 +4,7 @@ import FabioGilardi.U5W3D5.entities.Booking;
 import FabioGilardi.U5W3D5.exceptions.BadRequestException;
 import FabioGilardi.U5W3D5.exceptions.NotFoundException;
 import FabioGilardi.U5W3D5.payloads.NewBookingDTO;
+import FabioGilardi.U5W3D5.repositories.BookingDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
