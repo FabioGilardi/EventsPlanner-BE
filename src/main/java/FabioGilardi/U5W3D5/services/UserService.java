@@ -32,10 +32,12 @@ public class UserService {
             if (found.getUsername().equals(payload.username())) {
                 found.setName(payload.name());
                 found.setSurname(payload.surname());
+                found.setPassword(payload.password());
             } else if (!this.userDAO.existsByUsername(payload.username())) {
                 found.setUsername(payload.username());
                 found.setName(payload.name());
                 found.setSurname(payload.surname());
+                found.setPassword(payload.password());
             } else throw new BadRequestException("Username " + payload.username() + " is already taken");
             this.userDAO.save(found);
             return found;
