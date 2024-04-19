@@ -1,15 +1,14 @@
 package FabioGilardi.U5W3D5.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,6 +25,10 @@ public class Event {
     private LocalDate date;
 
     private int maxPartecipants;
+
+    @OneToMany(mappedBy = "event")
+    @JsonIgnore
+    private List<Booking> bookingList;
 
     public Event(String title, String description, String place, LocalDate date, int maxPartecipants) {
         this.title = title;

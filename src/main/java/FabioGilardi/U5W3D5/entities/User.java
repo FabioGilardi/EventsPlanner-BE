@@ -1,6 +1,7 @@
 package FabioGilardi.U5W3D5.entities;
 
 import FabioGilardi.U5W3D5.enums.UserAuthority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -29,6 +30,10 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserAuthority role;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Booking> bookingList;
 
     public User(String name, String surname, String email, String username, String password) {
         this.name = name;
