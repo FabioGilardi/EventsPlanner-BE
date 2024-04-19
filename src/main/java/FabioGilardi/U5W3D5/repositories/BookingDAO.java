@@ -1,4 +1,4 @@
-package FabioGilardi.U5W3D5.services;
+package FabioGilardi.U5W3D5.repositories;
 
 import FabioGilardi.U5W3D5.entities.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
