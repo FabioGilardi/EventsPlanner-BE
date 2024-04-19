@@ -25,7 +25,7 @@ public class BookingService {
     public Booking save(long userId, NewBookingDTO payload) {
         if (bookingDAO.existsByEventIdAndUserId(payload.eventId(), userId))
             throw new BadRequestException("You have already booked for this event");
-        if (eventService.findById(payload.eventId()).getBookingList().size() < eventService.findById(payload.eventId()).getMaxPartecipants())
+        if (eventService.findById(payload.eventId()).getBookingList().size() >= eventService.findById(payload.eventId()).getMaxPartecipants())
             throw new BadRequestException("Event " + payload.eventId() + " is already full");
         Booking newBooking = new Booking(this.userService.findById(userId), this.eventService.findById(payload.eventId()));
         return this.bookingDAO.save(newBooking);
